@@ -30,7 +30,7 @@ document.addEventListener("DOMContentLoaded", () => {
     var centersector = 20;
   
     const xhr = new XMLHttpRequest();
-    xhr.open("GET", "https://flask-hello-world-dekol123.vercel.app/get-item");
+    xhr.open("GET", "https://lugovskay-668fouc9y-dekol123.vercel.app/get-item");
     xhr.send();
     xhr.responseType = "json";
     xhr.onload = () => {
@@ -51,7 +51,7 @@ document.addEventListener("DOMContentLoaded", () => {
         var id = 'prize' + prize;
         var image = document.getElementById(id);
       
-        fetch('https://flask-hello-world-dekol123.vercel.app/send-response', {
+        fetch('https://lugovskay-668fouc9y-dekol123.vercel.app/send-response', {
           method: 'POST',
           headers: {
             'Accept': 'application/json',
