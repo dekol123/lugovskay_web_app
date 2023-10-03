@@ -11,6 +11,9 @@ var prize = 0;
 document.addEventListener("DOMContentLoaded", () => {
   window.Telegram.WebApp.expand()
 
+  let image = document.getElementById('no_spins')
+  image.style = "display:none";
+
   var prizes = document.getElementsByClassName('prizes');
   prizes[0].style = "display:none";
   prizes[1].style = "display:none";
@@ -22,15 +25,29 @@ document.addEventListener("DOMContentLoaded", () => {
   prizes[7].style = "display:none";
   prizes[8].style = "display:none";
 
+  fetch('https://lugovskay-api.vercel.app/validate-page', {
+        method: 'POST',
+        headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          image: document.getElementById('no_spins').src,
+          user_id: tg.initDataUnsafe['user'].id,
+          initData: window.Telegram.WebApp.initData
+        })
+      });
+
   Telegram.WebApp.onEvent('mainButtonClicked', function(){
     tg.MainButton.disable()
-  
+
+//  sector = 360 / count prize, centersector = sector / 2
     var cycle = 6 * 360;
     var sector = 40;
     var centersector = 20;
   
     const xhr = new XMLHttpRequest();
-    xhr.open("GET", "https://lugovskay-7ljvank33-dekol123.vercel.app/get-item");
+    xhr.open("GET", "https://lugovskay-api.vercel.app/get-item");
     xhr.send();
     xhr.responseType = "json";
     xhr.onload = () => {
@@ -51,14 +68,15 @@ document.addEventListener("DOMContentLoaded", () => {
         var id = 'prize' + prize;
         var image = document.getElementById(id);
       
-        fetch('https://lugovskay-7ljvank33-dekol123.vercel.app/send-response', {
+        fetch('https://lugovskay-api.vercel.app/send-response', {
           method: 'POST',
           headers: {
             'Accept': 'application/json',
             'Content-Type': 'application/json'
           },
           body: JSON.stringify({
-            prize: prize, 
+            prize: prize,
+            user_id: tg.initDataUnsafe['user'].id,
             image: image.src,
             initData: window.Telegram.WebApp.initData
           })
